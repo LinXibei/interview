@@ -67,6 +67,29 @@ function getDeps(temp, {deps}) {
 	})
 }
 
-const info = parserModules('./src/index.js');
-console.log(info);
+// const info = parserModules('./src/index.js');
+// console.log(info);
+function bundle(file) {
+	const depsGraph = JSON.stringify(parserModules(file))
+
+	return `
+		(function (graph) {
+			function require(file) {
+				function absRequire(relPaht) {
+					return require(graph[file].deps[relPaht])
+				}
+				var exports = {};
+				(function(require, exports, code){
+					eval(code)
+				})(absRequire, exports, graph[file].code);
+				return exports;
+			}
+			require('${file}')
+		})(${depsGraph})
+	`
+}
+
+const content = bundle('./src/index.js')
+!fs.existsSync('./dist') && fs.mkdirSync('./dist')
+fs.writeFileSync('./dist/bundle.js', content)
 

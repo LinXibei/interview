@@ -1,4 +1,5 @@
-<script>
+<!-- <script src="./dist/bundle.js"> -->
+<script src="./src/index.js" type="module">
 	// 1.
 	// var exports = {}
 	// eval('exports.default = function (a, b) { return a + b;} ')
@@ -25,20 +26,22 @@
 	// console.log(add(1, 5))
 
 	// 4.
-	(function (list) {
-		function require(file) {
-			var exports = {};
-			(function(exports, code){
-				eval(code)
-			})(exports, list[file]);
-			return exports;
-		}
-		require('index.js')
-	})({
-		"index.js": `
-			var add = require('add.js').default;
-			console.log(add(1, 2))
-		`,
-		"add.js": `exports.default = function (a, b) { return a + b;} `,
-	})
+	// (function (list) {
+	// 	function require(file) {
+	// 		var exports = {};
+	// 		(function(exports, code){
+	// 			eval(code)
+	// 		})(exports, list[file]);
+	// 		return exports;
+	// 	}
+	// 	require('index.js')
+	// })({
+	// 	"index.js": `
+	// 		var add = require('add.js').default;
+	// 		console.log(add(1, 2))
+	// 	`,
+	// 	"add.js": `exports.default = function (a, b) { return a + b;} `,
+	// })
 </script>
+
+<!-- <script src="./dist/bundle.js"></script> -->
